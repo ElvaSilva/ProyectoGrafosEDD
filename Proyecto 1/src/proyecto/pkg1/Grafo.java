@@ -8,12 +8,12 @@ package proyecto.pkg1;
  *
  * @author USER
  */
-public class ListaGrafo {
+public class Grafo {
     public NodoGrafo pFirst;
     public NodoGrafo pLast;
     public int tamaño;
     
-    public ListaGrafo(){
+    public Grafo(){
         pFirst = null;
         pLast = null;
         tamaño = 0;
@@ -73,5 +73,46 @@ public class ListaGrafo {
             }
         tamaño --;    
         }
+    }
+    
+    public void establecer_falso(){
+        NodoGrafo pAux = pFirst;
+        while (pAux != null){
+            pAux.visitado = false;
+            pAux = pAux.pnext;
+        }
+    }
+    
+    public boolean existe_nodo(String elem){
+        NodoGrafo pAux = pFirst;
+        while (pAux != null){
+            if (pAux.usuario.equals(elem)){
+                return true;
+            }
+            pAux = pAux.pnext;
+        }
+        return false;
+    }
+    
+    public Grafo transponer(){
+        Grafo traspuesto = new Grafo();
+        NodoGrafo pAux = pFirst;
+        while (pAux != null) {
+            Arista pArista = pAux.minilista.primero;
+            while(pArista != null) {
+                if (traspuesto.Buscar(pArista.destino) == null){
+                    traspuesto.insertar(pArista.destino);
+                } 
+                NodoGrafo pNodo = traspuesto.Buscar(pArista.destino);
+                pNodo.minilista.insertar_nueva(pAux.usuario);
+                
+                pArista = pArista.siguiente;
+            }
+            if (!traspuesto.existe_nodo(pAux.usuario)){
+                traspuesto.insertar(pAux.usuario);
+            }
+            pAux = pAux.pnext;
+        }
+        return traspuesto;
     }
 }

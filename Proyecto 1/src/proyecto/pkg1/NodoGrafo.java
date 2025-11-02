@@ -12,10 +12,12 @@ public class NodoGrafo {
     public String usuario;
     public ListaAdyacencia minilista;
     public NodoGrafo pnext;
+    public boolean visitado;
     
     public NodoGrafo(String info){
         usuario = info;
         minilista = new ListaAdyacencia();
         pnext = null;
+        visitado = false;
     }
 }
