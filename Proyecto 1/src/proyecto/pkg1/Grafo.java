@@ -115,4 +115,31 @@ public class Grafo {
         }
         return traspuesto;
     }
+    
+    public String mostrar(){
+        NodoGrafo aux = new NodoGrafo("");
+        aux = this.pFirst;
+        String texto = "";
+        while(aux != null){
+            texto = texto + aux.usuario + "\n";
+            aux = aux.pnext;
+        }
+        return texto;
+    }
+    
+    public String mostrarRelaciones(){
+        NodoGrafo aux = new NodoGrafo("");
+        aux = this.pFirst;
+        Arista aux2 = new Arista("");
+        String texto = "";
+        while(aux != null){
+            aux2 = aux.minilista.primero;
+            while(aux2 != null){
+                texto = texto + aux.usuario + ", " + aux2.destino + "\n";
+                aux2 = aux2.siguiente;
+            }
+            aux = aux.pnext;
+        }
+        return texto;
+    }
 }
