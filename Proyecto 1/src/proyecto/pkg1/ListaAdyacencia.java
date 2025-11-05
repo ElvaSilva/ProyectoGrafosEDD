@@ -21,7 +21,10 @@ public class ListaAdyacencia {
     public boolean esVacio(){
         return primero == null; 
     }
-   
+    /** Con el usuario proporcionado, se va a agregar este usuario a la lista de
+     * conexiones del nodo en el que se llama el m&eacute;todo.
+     * @param destino nombre del usuario que se quiere añadir 
+     */
     public void insertar_nueva(String destino){
         Arista pArista = new Arista(destino);
         if (esVacio()){

@@ -18,7 +18,10 @@ public class DFS {
         
     }
     
-    // Para que este código funcione al momento de implmentar la lógica, pNodo se debe poner con el primer Nodo del Grafo
+    /**
+     * 
+     * @param pNodo debe ser el primer nodo del grafo
+     */
     public void PrimerRecorrido(NodoGrafo pNodo){
         Arista pAux = pNodo.minilista.primero;
         pNodo.visitado = true;
@@ -32,7 +35,12 @@ public class DFS {
         pila.Apilar(pNodo.usuario);
     }
     
-    // kosaraju va a ser la pila que tenga como parámetro kosaraju y pNodo debe ser inicializada con el primer nodo que aparezca en la pila
+    /**
+     * 
+     * @param pNodo primer nodo que aparezca en la pila
+     * @param componente
+     * @param kosaraju pila que se tenga como par&aacute;metro kosaraju
+     */
     public void SegundoRecorrido(NodoGrafo pNodo, Componente componente, Pila kosaraju){
         Arista pAux = pNodo.minilista.primero;
         pNodo.visitado = true;

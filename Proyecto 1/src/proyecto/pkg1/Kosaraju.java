@@ -8,7 +8,11 @@ package proyecto.pkg1;
  *
  * @author USER
  */
-// La clase Kosaraju permite guardar los componentes fuertemente conectados, funciona como una lista de componentes, a su vez, ella va a generar estos componentes
+
+/** La clase Kosaraju permite guardar los componentes fuertemente conectados, 
+ * funciona como una lista de componentes, a su vez, ella va a generar estos 
+ * componentes
+ */
 public class Kosaraju {
     public Componente firstcomp;
     public Componente lastcomp;
@@ -28,7 +32,11 @@ public class Kosaraju {
         tamaño = 0;
     }
     
-    
+    /** Se va a recorrer el grafo transpuesto, realizando un DFS en cada nodo, lo
+     * que devolver&aacute; todos los nodos que pertenezcan al mismo CFC (Componente 
+     * Fuertemente Conectado), esta componente luego ser&aacute; guardado en una 
+     * lista de estas mismas.
+     */
     public void fuertemente_conectados(){         
         while (!(pila.esVacio())){
             NodoGrafo pNodo = transpuesto.Buscar(pila.Cima.usuario);

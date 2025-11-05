@@ -23,6 +23,10 @@ public class Grafo {
         return pFirst == null;
     }
     
+    /** Se agrega un usuario al grafo sin la necesidad de este tener conexiones.
+     * 
+     * @param elem usuario que se va a a&ntilde;adir al grafo
+     */
     public void insertar(String elem){
         NodoGrafo Nodo = new NodoGrafo(elem);
         if (esVacio()){
@@ -51,6 +55,10 @@ public class Grafo {
         return null;
     }
     
+    /** Se elimina el nodo del grafo m&aacute;s no sus conexiones.
+     * 
+     * @param pNodo nodo a eliminar
+     */
     public void Eliminar(NodoGrafo pNodo){
         NodoGrafo pAux = pFirst;
         if (pNodo != null) {
@@ -116,6 +124,10 @@ public class Grafo {
         return traspuesto;
     }
     
+    /** Se van a devolver los usuarios que existen en el grafo.
+     * 
+     * @return texto
+     */
     public String mostrar(){
         NodoGrafo aux = new NodoGrafo("");
         aux = this.pFirst;
@@ -127,6 +139,10 @@ public class Grafo {
         return texto;
     }
     
+    /** Se va a devolver cada usuario en el grafo con las conexiones de cada nodo. 
+     * Ej: (Nodo A, Nodo B; Nodo A, Nodo F)
+     * @return texto
+     */
     public String mostrarRelaciones(){
         NodoGrafo aux = new NodoGrafo("");
         aux = this.pFirst;

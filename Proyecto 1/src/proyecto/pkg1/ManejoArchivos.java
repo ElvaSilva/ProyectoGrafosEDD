@@ -24,6 +24,11 @@ public class ManejoArchivos {
         this.selectedArchivo = null;
     }
     
+    /** Se va a ofrecer una ventana al usuario para que eliga el archivo de texto
+     * que va a montar y basandose en este, se va a inicializar el grafo y se
+     * va a retornar este mismo.
+     * @return Grafo inicializado
+     */
     public Grafo subir_archivo(){
         try{
             JFileChooser file = new JFileChooser();
@@ -64,6 +69,10 @@ public class ManejoArchivos {
         }
     }
     
+    /** Se va a recibir un grafo que luego se va a recorrer junto a las conexiones
+     * de cada nodo para actualizar el archivo de texto.
+     * @param aux grafo modificado
+     */
     public void actualizar_archivo(Grafo aux){
         try{
             if(this.selectedArchivo != null){
