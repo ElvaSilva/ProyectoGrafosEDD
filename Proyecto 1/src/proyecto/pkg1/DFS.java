@@ -12,8 +12,8 @@ public class DFS {
     public Pila pila;
     public Grafo grafo;
     
-    public DFS(Grafo listagrafo){
-        pila = new Pila();
+    public DFS(Grafo listagrafo, Pila Ppila){
+        pila = Ppila;
         grafo = listagrafo;
         
     }
@@ -33,17 +33,18 @@ public class DFS {
     }
     
     // kosaraju va a ser la pila que tenga como parámetro kosaraju y pNodo debe ser inicializada con el primer nodo que aparezca en la pila
-    public void SegundoRecorrido(NodoGrafo pNodo, Componente componente, Pila kosaraju){
-        Arista pAux = pNodo.minilista.primero;
+    public void segundoRecorrido(NodoGrafo pNodo, Componente componente){
         pNodo.visitado = true;
         componente.insertar(pNodo.usuario);
-        while (pAux != null) {
+        Arista pAux = pNodo.minilista.primero;
+        while (pAux != null){
             NodoGrafo pNodoAux = grafo.Buscar(pAux.destino);
             if (!(pNodoAux.visitado)) {
-                SegundoRecorrido(pNodoAux, componente, kosaraju);
+                segundoRecorrido(pNodoAux, componente);
             }
             pAux = pAux.siguiente;
-            
         }
     }
+    
+   
 }

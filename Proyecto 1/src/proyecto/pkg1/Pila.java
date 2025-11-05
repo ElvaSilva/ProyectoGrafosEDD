@@ -32,6 +32,17 @@ public class Pila {
         }
     }
     
+    public void Marcar_visitado(String elem){
+        NodoGrafo Nodo = Cima;
+        while (Nodo != null) {
+            if (Nodo.usuario.equals(elem)){
+                Nodo.visitado = true;
+                return;
+            }
+            Nodo = Nodo.pnext;
+        }
+    }
+    
     public void eliminar(String elem){
         NodoGrafo pNodo = Cima;
         if (pNodo.usuario.equals(elem)){

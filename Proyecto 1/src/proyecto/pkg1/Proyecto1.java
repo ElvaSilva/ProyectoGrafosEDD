@@ -35,8 +35,6 @@ public class Proyecto1 {
         grafo.Buscar("E").minilista.insertar_nueva("D");
         Grafo transpuesto = grafo.transponer();
         System.out.print(transpuesto);
-        DFS dfs = new DFS(grafo);
-        dfs.PrimerRecorrido(grafo.pFirst);
     }
     
 }

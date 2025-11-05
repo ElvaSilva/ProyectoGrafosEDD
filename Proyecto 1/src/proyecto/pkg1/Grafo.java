@@ -94,22 +94,39 @@ public class Grafo {
         return false;
     }
     
+    public NodoGrafo todos_visitados(){
+        NodoGrafo Nodo = pFirst;
+        while (Nodo != null){
+            if (Nodo.visitado == false){
+                return Nodo;
+            }
+            Nodo = Nodo.pnext;
+        }
+        return null;
+    }
+    
     public Grafo transponer(){
         Grafo traspuesto = new Grafo();
         NodoGrafo pAux = pFirst;
         while (pAux != null) {
             Arista pArista = pAux.minilista.primero;
-            while(pArista != null) {
-                if (traspuesto.Buscar(pArista.destino) == null){
-                    traspuesto.insertar(pArista.destino);
-                } 
-                NodoGrafo pNodo = traspuesto.Buscar(pArista.destino);
-                pNodo.minilista.insertar_nueva(pAux.usuario);
-                
-                pArista = pArista.siguiente;
-            }
-            if (!traspuesto.existe_nodo(pAux.usuario)){
-                traspuesto.insertar(pAux.usuario);
+            if (pArista != null){
+                while(pArista != null) {
+                    if (traspuesto.Buscar(pArista.destino) == null){
+                        traspuesto.insertar(pArista.destino);
+                    } 
+                    NodoGrafo pNodo = traspuesto.Buscar(pArista.destino);
+                    pNodo.minilista.insertar_nueva(pAux.usuario);                
+                    pArista = pArista.siguiente;
+                }
+                if (!traspuesto.existe_nodo(pAux.usuario)){
+                    traspuesto.insertar(pAux.usuario);
+                }
+            } else {
+                if (!traspuesto.existe_nodo(pAux.usuario)){
+                    traspuesto.insertar(pAux.usuario);
+                    traspuesto.pLast.minilista.insertar_nueva(pAux.usuario);
+                }
             }
             pAux = pAux.pnext;
         }
