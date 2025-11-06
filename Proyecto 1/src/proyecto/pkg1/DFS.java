@@ -41,16 +41,17 @@ public class DFS {
      * @param componente
      * @param kosaraju pila que se tenga como par&aacute;metro kosaraju
      */
-    public void SegundoRecorrido(NodoGrafo pNodo, Componente componente, Pila kosaraju){
-        Arista pAux = pNodo.minilista.primero;
+    public void segundoRecorrido(NodoGrafo pNodo, Componente componente){
         pNodo.visitado = true;
         componente.insertar(pNodo.usuario);
-        while (pAux != null) {
+        Arista pAux = pNodo.minilista.primero;
+        while (pAux != null){
             NodoGrafo pNodoAux = grafo.Buscar(pAux.destino);
-            if (pNodoAux != null && !pNodoAux.visitado) {
-                SegundoRecorrido(pNodoAux, componente, kosaraju);
+            if (!(pNodoAux.visitado)) {
+                segundoRecorrido(pNodoAux, componente);
             }
             pAux = pAux.siguiente;
         }
     }
+    
 }
