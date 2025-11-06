@@ -104,22 +104,15 @@ public class Grafo {
     
     public Grafo transponer(){
         Grafo traspuesto = new Grafo();
-        NodoGrafo pAux = pFirst;
-        while (pAux != null) {
-            Arista pArista = pAux.minilista.primero;
-            while(pArista != null) {
-                if (traspuesto.Buscar(pArista.destino) == null){
-                    traspuesto.insertar(pArista.destino);
-                } 
-                NodoGrafo pNodo = traspuesto.Buscar(pArista.destino);
-                pNodo.minilista.insertar_nueva(pAux.usuario);
-                
-                pArista = pArista.siguiente;
+        for (NodoGrafo pAux = pFirst; pAux != null; pAux = pAux.pnext) {
+            if (traspuesto.Buscar(pAux.usuario) == null) traspuesto.insertar(pAux.usuario);
+
+            for (Arista pArista = pAux.minilista.primero; pArista != null; pArista = pArista.siguiente) {
+                if (!existe_nodo(pArista.destino)) continue; // <-- evita “fantasmas”
+                if (traspuesto.Buscar(pArista.destino) == null) traspuesto.insertar(pArista.destino);
+                NodoGrafo dst = traspuesto.Buscar(pArista.destino);
+                dst.minilista.insertar_nueva(pAux.usuario); // arista invertida
             }
-            if (!traspuesto.existe_nodo(pAux.usuario)){
-                traspuesto.insertar(pAux.usuario);
-            }
-            pAux = pAux.pnext;
         }
         return traspuesto;
     }
@@ -157,5 +150,44 @@ public class Grafo {
             aux = aux.pnext;
         }
         return texto;
+    }
+    
+    public void eliminarAristasHacia(String destino) {
+        for (NodoGrafo u = pFirst; u != null; u = u.pnext) {
+            if (u.minilista != null) {
+                u.minilista.eliminarTodos(destino);
+            }
+        }
+    }
+
+    public void eliminarUsuarioCompleto(String nombre) {
+        // primero borra TODAS las aristas que apuntan a 'nombre'
+        eliminarAristasHacia(nombre);
+        // luego elimina el nodo del listado de nodos
+        NodoGrafo n = Buscar(nombre);
+        if (n != null) {
+            Eliminar(n);
+        }
+    }
+    
+    public Grafo clonarProfundo() {
+        Grafo copia = new Grafo();
+
+        // Copiar todos los nodos (usuarios)
+        for (NodoGrafo n = this.pFirst; n != null; n = n.pnext) {
+            copia.insertar(n.usuario);
+        }
+
+        // Copiar todas las aristas (relaciones)
+        for (NodoGrafo n = this.pFirst; n != null; n = n.pnext) {
+            NodoGrafo cn = copia.Buscar(n.usuario);
+            for (Arista a = n.minilista.primero; a != null; a = a.siguiente) {
+                if (!cn.minilista.Buscar(a.destino)) {
+                    cn.minilista.insertar_nueva(a.destino);
+                }
+            }
+        }
+
+        return copia;
     }
 }

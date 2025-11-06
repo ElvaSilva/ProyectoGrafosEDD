@@ -27,7 +27,7 @@ public class DFS {
         pNodo.visitado = true;
         while (pAux != null) {
             NodoGrafo pNodoAux = grafo.Buscar(pAux.destino);
-            if (!(pNodoAux.visitado)) {
+            if (pNodoAux != null && !pNodoAux.visitado) {
                 PrimerRecorrido(pNodoAux);
             }
             pAux = pAux.siguiente;
@@ -47,11 +47,10 @@ public class DFS {
         componente.insertar(pNodo.usuario);
         while (pAux != null) {
             NodoGrafo pNodoAux = grafo.Buscar(pAux.destino);
-            if (!(pNodoAux.visitado)) {
+            if (pNodoAux != null && !pNodoAux.visitado) {
                 SegundoRecorrido(pNodoAux, componente, kosaraju);
             }
             pAux = pAux.siguiente;
-            
         }
     }
 }
