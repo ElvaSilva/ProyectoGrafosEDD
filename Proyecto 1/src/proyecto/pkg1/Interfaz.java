@@ -4,6 +4,7 @@
  */
 package proyecto.pkg1;
 
+import javax.swing.JOptionPane;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
@@ -137,21 +138,38 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_exitActionPerformed
 
     private void btnAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUsuarioActionPerformed
-        this.grafo.insertar(this.usertoinsert.getText());
+        if(this.grafo == null){
+            this.grafo.insertar(this.usertoinsert.getText());
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha subido un archivo para crear el grafo");
+        }
     }//GEN-LAST:event_btnAgregarUsuarioActionPerformed
 
     private void btnAgregarRelaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRelaciónActionPerformed
-        NodoGrafo aux = new NodoGrafo("");
-        aux = this.grafo.Buscar(this.connectionsender.getText());
-        aux.minilista.insertar_nueva(this.connectionreceiver.getText());
+        if(this.grafo == null){
+            NodoGrafo aux = new NodoGrafo("");
+            aux = this.grafo.Buscar(this.connectionsender.getText());
+            aux.minilista.insertar_nueva(this.connectionreceiver.getText());
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha subido un archivo para crear el grafo");
+        }
     }//GEN-LAST:event_btnAgregarRelaciónActionPerformed
 
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
-        this.grafo.Eliminar(this.grafo.Buscar(this.usertoinsert.getText()));
+        if(this.grafo == null){
+            this.grafo.Eliminar(this.grafo.Buscar(this.usertoinsert.getText()));
+            this.grafo.eliminarconexiones(this.usertoinsert.getText());
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha subido un archivo para crear el grafo");
+        }
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        this.manejo.actualizar_archivo(this.grafo);
+        if(this.grafo == null){
+            this.manejo.actualizar_archivo(this.grafo);
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha subido un archivo para crear el grafo");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

@@ -68,39 +68,4 @@ public class ListaAdyacencia {
             }
         }
     }
-    
-    public int eliminarTodos(String destino) {
-        int count = 0;
-
-        // 1) eliminar todas las coincidencias en la cabeza
-        while (primero != null && primero.destino.equals(destino)) {
-            primero = primero.siguiente;
-            count++;
-        }
-
-        // si quedó vacía, sincroniza 'ultimo' y termina
-        if (primero == null) {
-            ultimo = null;
-            return count;
-        }
-
-        // 2) eliminar coincidencias en el resto
-        Arista prev = primero;
-        Arista curr = primero.siguiente;
-
-        while (curr != null) {
-            if (curr.destino.equals(destino)) {
-                prev.siguiente = curr.siguiente;
-                if (curr == ultimo) {
-                    ultimo = prev; // si quitamos el último, actualiza
-                }
-                count++;
-                curr = prev.siguiente; // sigue desde el siguiente
-            } else {
-                prev = curr;
-                curr = curr.siguiente;
-            }
-        }
-        return count;
-    }
 }

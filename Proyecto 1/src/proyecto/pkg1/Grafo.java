@@ -157,42 +157,12 @@ public class Grafo {
         return texto;
     }
     
-    public void eliminarAristasHacia(String destino) {
-        for (NodoGrafo u = pFirst; u != null; u = u.pnext) {
-            if (u.minilista != null) {
-                u.minilista.eliminarTodos(destino);
-            }
+    public void eliminarconexiones(String aux){
+        NodoGrafo reco = new NodoGrafo("");
+        reco = this.pFirst;
+        while(reco != null){
+            reco.minilista.Eliminar(aux);
+            reco = reco.pnext;
         }
-    }
-
-    public void eliminarUsuarioCompleto(String nombre) {
-        // primero borra TODAS las aristas que apuntan a 'nombre'
-        eliminarAristasHacia(nombre);
-        // luego elimina el nodo del listado de nodos
-        NodoGrafo n = Buscar(nombre);
-        if (n != null) {
-            Eliminar(n);
-        }
-    }
-    
-    public Grafo clonarProfundo() {
-        Grafo copia = new Grafo();
-
-        // Copiar todos los nodos (usuarios)
-        for (NodoGrafo n = this.pFirst; n != null; n = n.pnext) {
-            copia.insertar(n.usuario);
-        }
-
-        // Copiar todas las aristas (relaciones)
-        for (NodoGrafo n = this.pFirst; n != null; n = n.pnext) {
-            NodoGrafo cn = copia.Buscar(n.usuario);
-            for (Arista a = n.minilista.primero; a != null; a = a.siguiente) {
-                if (!cn.minilista.Buscar(a.destino)) {
-                    cn.minilista.insertar_nueva(a.destino);
-                }
-            }
-        }
-
-        return copia;
     }
 }
