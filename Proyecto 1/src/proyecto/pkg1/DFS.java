@@ -12,8 +12,8 @@ public class DFS {
     public Pila pila;
     public Grafo grafo;
     
-    public DFS(Grafo listagrafo){
-        pila = new Pila();
+    public DFS(Grafo listagrafo, Pila Ppila){
+        pila = Ppila;
         grafo = listagrafo;
         
     }
