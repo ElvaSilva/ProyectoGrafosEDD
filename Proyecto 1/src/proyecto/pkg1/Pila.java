@@ -30,28 +30,5 @@ public class Pila {
             NodoGrafo pTemp = Cima;
             Cima = pTemp.pnext;
         }
-    }
-    
-    public void Marcar_visitado(String elem){
-        NodoGrafo Nodo = Cima;
-        while (Nodo != null) {
-            if (Nodo.usuario.equals(elem)){
-                Nodo.visitado = true;
-                return;
-            }
-            Nodo = Nodo.pnext;
-        }
-    }
-    
-    public void eliminar(String elem){
-        NodoGrafo pNodo = Cima;
-        if (pNodo.usuario.equals(elem)){
-            Cima = pNodo.pnext;
-        } else {
-            Desapilar();
-            eliminar(elem);
-            Apilar(pNodo.usuario);
-        }
-    }
-    
+    }    
 }

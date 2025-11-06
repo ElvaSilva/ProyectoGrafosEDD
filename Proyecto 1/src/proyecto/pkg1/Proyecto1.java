@@ -33,8 +33,10 @@ public class Proyecto1 {
         grafo.Buscar("E").minilista.insertar_nueva("C");
         grafo.Buscar("E").minilista.insertar_nueva("B");
         grafo.Buscar("E").minilista.insertar_nueva("D");
-        Grafo transpuesto = grafo.transponer();
-        System.out.print(transpuesto);
+        Kosaraju kos = new Kosaraju(grafo);
+        kos.generar_pila();
+        kos.generar_componentes();
+        
     }
     
 }

@@ -28,14 +28,10 @@ public class Grafo {
         if (esVacio()){
             pFirst = Nodo;
             pLast = Nodo;
-        } else {
-            if (tamaño == 1){
-                pLast = Nodo;
-                pFirst.pnext = pLast;
-            } else {
-                pLast.pnext = Nodo;
-                pLast = Nodo;
-            }
+        } else {            
+            pLast.pnext = Nodo;
+            pLast = Nodo;
+            
         }
         tamaño ++;       
     }
@@ -109,27 +105,50 @@ public class Grafo {
         Grafo traspuesto = new Grafo();
         NodoGrafo pAux = pFirst;
         while (pAux != null) {
+            // Asegurar que el nodo exista en el traspuesto
+            if (traspuesto.Buscar(pAux.usuario) == null) {
+                traspuesto.insertar(pAux.usuario);
+            }
             Arista pArista = pAux.minilista.primero;
-            if (pArista != null){
-                while(pArista != null) {
-                    if (traspuesto.Buscar(pArista.destino) == null){
-                        traspuesto.insertar(pArista.destino);
-                    } 
-                    NodoGrafo pNodo = traspuesto.Buscar(pArista.destino);
-                    pNodo.minilista.insertar_nueva(pAux.usuario);                
-                    pArista = pArista.siguiente;
+            while (pArista != null) {
+                // Asegurar que el nodo destino exista antes de agregar la relación
+                if (traspuesto.Buscar(pArista.destino) == null) {
+                    traspuesto.insertar(pArista.destino);
                 }
-                if (!traspuesto.existe_nodo(pAux.usuario)){
-                    traspuesto.insertar(pAux.usuario);
-                }
-            } else {
-                if (!traspuesto.existe_nodo(pAux.usuario)){
-                    traspuesto.insertar(pAux.usuario);
-                    traspuesto.pLast.minilista.insertar_nueva(pAux.usuario);
-                }
+                // Ahora sí invertir la arista
+                NodoGrafo destinoNodo = traspuesto.Buscar(pArista.destino);
+                destinoNodo.minilista.insertar_nueva(pAux.usuario);
+                pArista = pArista.siguiente;
             }
             pAux = pAux.pnext;
         }
         return traspuesto;
+    }
+    
+    public String mostrar(){
+        NodoGrafo aux = new NodoGrafo("");
+        aux = this.pFirst;
+        String texto = "";
+        while(aux != null){
+            texto = texto + aux.usuario + "\n";
+            aux = aux.pnext;
+        }
+        return texto;
+    }
+    
+    public String mostrarRelaciones(){
+        NodoGrafo aux = new NodoGrafo("");
+        aux = this.pFirst;
+        Arista aux2 = new Arista("");
+        String texto = "";
+        while(aux != null){
+            aux2 = aux.minilista.primero;
+            while(aux2 != null){
+                texto = texto + aux.usuario + ", " + aux2.destino + "\n";
+                aux2 = aux2.siguiente;
+            }
+            aux = aux.pnext;
+        }
+        return texto;
     }
 }

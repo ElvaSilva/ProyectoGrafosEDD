@@ -23,16 +23,15 @@ public class ListaAdyacencia {
     }
    
     public void insertar_nueva(String destino){
-        Arista pArista = new Arista(destino);
-        if (esVacio()){
-            primero = pArista;
-            ultimo = pArista;
-        } else if (primero == ultimo) {
-            ultimo = pArista;
-            primero.siguiente = ultimo;
-        } else {
-            ultimo.siguiente = pArista;
-            ultimo = pArista;
+        if (!(Buscar(destino))){
+            Arista pArista = new Arista(destino);
+            if (esVacio()){
+                primero = pArista;
+                ultimo = pArista;
+            } else {
+                ultimo.siguiente = pArista;
+                ultimo = pArista;
+            }
         }
     }
     
@@ -49,17 +48,26 @@ public class ListaAdyacencia {
     
     public void Eliminar(String objetivo){
         if (Buscar(objetivo)){
-            if (primero.destino.equals(objetivo) && ultimo.destino.equals(objetivo)){
+           
+            if (primero == ultimo && primero.destino.equals(objetivo)){
                 primero = null;
                 ultimo = null;
-            } else if (primero.destino.equals(objetivo)){
+            } 
+            else if (primero.destino.equals(objetivo)){
                 primero = primero.siguiente;
-            } else {
+            } 
+            else {
                 Arista pArista = primero;
-                while (!(pArista.siguiente.destino.equals(objetivo))){
+                while (pArista.siguiente != null && 
+                       !pArista.siguiente.destino.equals(objetivo)){
                     pArista = pArista.siguiente;
                 }
-                if (pArista.siguiente != null) {
+                // Si el nodo a eliminar es el último
+                if (pArista.siguiente == ultimo){
+                    ultimo = pArista;
+                    ultimo.siguiente = null;
+                } 
+                else if (pArista.siguiente != null){
                     pArista.siguiente = pArista.siguiente.siguiente;
                 }
             }

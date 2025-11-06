@@ -60,38 +60,10 @@ public class Kosaraju {
             NodoGrafo nodo = transpuesto.Buscar(nombre);
             if (nodo != null && !nodo.visitado){
                 Componente componente = new Componente();
-                DFS dfs = new DFS(transpuesto, pila);
+                DFS dfs = new DFS(transpuesto, new Pila());
                 dfs.segundoRecorrido(nodo, componente);
                 insertar_componente(componente);
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    //public void fuertemente_conectados(){         
-    //    while (!(pila.esVacio())){
-    //        NodoGrafo pNodo = transpuesto.Buscar(pila.Cima.usuario);
-    //        Componente pComponente = new Componente();
-    //        DFS dfs = new DFS(transpuesto, pila);
-    //        dfs.SegundoRecorrido(pNodo, pComponente, pila);
-    //        if (tamaño == 0){
-    //            firstcomp = pComponente;
-    //            lastcomp = pComponente; 
-    //        } else {
-    //            lastcomp.next = pComponente;
-    //            lastcomp = pComponente;
-    //        }
-     //       Arista pArista = pComponente.primero;
-    //        while (pArista != null){
-    //            pila.eliminar(pArista.destino);
-    //        }
-     //       tamaño ++;
-       // }
-    //}
 }
