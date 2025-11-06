@@ -32,14 +32,10 @@ public class Grafo {
         if (esVacio()){
             pFirst = Nodo;
             pLast = Nodo;
-        } else {
-            if (tamaño == 1){
-                pLast = Nodo;
-                pFirst.pnext = pLast;
-            } else {
-                pLast.pnext = Nodo;
-                pLast = Nodo;
-            }
+        } else {            
+            pLast.pnext = Nodo;
+            pLast = Nodo;
+            
         }
         tamaño ++;       
     }
@@ -104,15 +100,24 @@ public class Grafo {
     
     public Grafo transponer(){
         Grafo traspuesto = new Grafo();
-        for (NodoGrafo pAux = pFirst; pAux != null; pAux = pAux.pnext) {
-            if (traspuesto.Buscar(pAux.usuario) == null) traspuesto.insertar(pAux.usuario);
-
-            for (Arista pArista = pAux.minilista.primero; pArista != null; pArista = pArista.siguiente) {
-                if (!existe_nodo(pArista.destino)) continue; // <-- evita “fantasmas”
-                if (traspuesto.Buscar(pArista.destino) == null) traspuesto.insertar(pArista.destino);
-                NodoGrafo dst = traspuesto.Buscar(pArista.destino);
-                dst.minilista.insertar_nueva(pAux.usuario); // arista invertida
+        NodoGrafo pAux = pFirst;
+        while (pAux != null) {
+            // Asegurar que el nodo exista en el traspuesto
+            if (traspuesto.Buscar(pAux.usuario) == null) {
+                traspuesto.insertar(pAux.usuario);
             }
+            Arista pArista = pAux.minilista.primero;
+            while (pArista != null) {
+                // Asegurar que el nodo destino exista antes de agregar la relación
+                if (traspuesto.Buscar(pArista.destino) == null) {
+                    traspuesto.insertar(pArista.destino);
+                }
+                // Ahora sí invertir la arista
+                NodoGrafo destinoNodo = traspuesto.Buscar(pArista.destino);
+                destinoNodo.minilista.insertar_nueva(pAux.usuario);
+                pArista = pArista.siguiente;
+            }
+            pAux = pAux.pnext;
         }
         return traspuesto;
     }
