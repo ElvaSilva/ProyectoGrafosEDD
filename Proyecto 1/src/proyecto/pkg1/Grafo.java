@@ -108,7 +108,7 @@ public class Grafo {
             if (traspuesto.Buscar(pAux.usuario) == null) traspuesto.insertar(pAux.usuario);
 
             for (Arista pArista = pAux.minilista.primero; pArista != null; pArista = pArista.siguiente) {
-                if (!existe_nodo(pArista.destino)) continue; // <-- evita “fantasmas”
+                if (!existe_nodo(pArista.destino)) continue; // evita fantasmas
                 if (traspuesto.Buscar(pArista.destino) == null) traspuesto.insertar(pArista.destino);
                 NodoGrafo dst = traspuesto.Buscar(pArista.destino);
                 dst.minilista.insertar_nueva(pAux.usuario); // arista invertida

@@ -30,17 +30,5 @@ public class Pila {
             NodoGrafo pTemp = Cima;
             Cima = pTemp.pnext;
         }
-    }
-    
-    public void eliminar(String elem){
-        NodoGrafo pNodo = Cima;
-        if (pNodo.usuario.equals(elem)){
-            Cima = pNodo.pnext;
-        } else {
-            Desapilar();
-            eliminar(elem);
-            Apilar(pNodo.usuario);
-        }
-    }
-    
+    }    
 }
