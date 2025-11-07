@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/Documents/NetBeansProjects/Proyecto%201.1/ProyectoGrafosEDD/Proyecto%201/src/proyecto/pkg1/Interfaz.java</file>
-            <file>file:/C:/Users/USER/Documents/NetBeansProjects/Proyecto%201.1/ProyectoGrafosEDD/Proyecto%201/src/proyecto/pkg1/Kosaraju.java</file>
+            <file>file://wsl.localhost/Ubuntu/home/remo/dev/edd/ProyectoGrafosEDD/Proyecto%201/src/proyecto/pkg1/Proyecto1.java</file>
+            <file>file://wsl.localhost/Ubuntu/home/remo/dev/edd/ProyectoGrafosEDD/Proyecto%201/src/proyecto/pkg1/Grafo.java</file>
+            <file>file://wsl.localhost/Ubuntu/home/remo/dev/edd/ProyectoGrafosEDD/Proyecto%201/src/proyecto/pkg1/ManejoArchivos.java</file>
         </group>
     </open-files>
 </project-private>

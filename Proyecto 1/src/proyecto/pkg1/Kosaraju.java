@@ -37,41 +37,39 @@ public class Kosaraju {
      * Fuertemente Conectado), esta componente luego ser&aacute; guardado en una 
      * lista de estas mismas.
      */
-    public void insertar_componente(Componente componente){
-        if (firstcomp == null) {
-            firstcomp = componente;
-            lastcomp = componente;
-        } else {
-            lastcomp.next = componente;
-            lastcomp = componente;
-        }
-    }
-    
-    public void generar_pila(){
-        NodoGrafo Nodo = grafo.pFirst;
-        grafo.establecer_falso();
-        while(Nodo != null){
-            if (Nodo.visitado){
-                Nodo = Nodo.pnext;
-            } else {
-                DFS dfs = new DFS(grafo, pila);
-                dfs.PrimerRecorrido(Nodo);
-                Nodo = Nodo.pnext;
-            }
-        }
-    }
-    
-    public void generar_componentes(){
+    public void fuertemente_conectados() {
+        // Asegura flags limpios en el transpuesto antes del 2do pase
         transpuesto.establecer_falso();
+
         while (!pila.esVacio()) {
-            String nombre = pila.Cima.usuario;
+            // 1) Pop: toma el tope y desapila
+            String u = pila.Cima.usuario;
             pila.Desapilar();
-            NodoGrafo nodo = transpuesto.Buscar(nombre);
-            if (nodo != null && !nodo.visitado){
-                Componente componente = new Componente();
-                DFS dfs = new DFS(transpuesto, new Pila());
-                dfs.segundoRecorrido(nodo, componente);
-                insertar_componente(componente);
+
+            // 2) Busca el nodo en el transpuesto
+            NodoGrafo start = transpuesto.Buscar(u);
+            if (start == null) {
+                // Si por alguna razón no existe en el transpuesto, continúa
+                continue;
+            }
+
+            // 3) Si no está visitado en el transpuesto, corre DFS y crea componente
+            if (!start.visitado) {
+                Componente comp = new Componente();
+                DFS dfsT = new DFS(transpuesto);
+                // Nota: tu SegundoRecorrido no usa realmente el parámetro 'kosaraju' (3er arg).
+                // Puedes pasar 'pila' o null; no se utiliza adentro.
+                dfsT.SegundoRecorrido(start, comp, pila);
+
+                // Enlazar a la lista de componentes
+                if (tamaño == 0) {
+                    firstcomp = comp;
+                    lastcomp = comp;
+                } else {
+                    lastcomp.next = comp;
+                    lastcomp = comp;
+                }
+                tamaño++;
             }
         }
     }

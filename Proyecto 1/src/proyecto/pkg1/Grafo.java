@@ -32,10 +32,14 @@ public class Grafo {
         if (esVacio()){
             pFirst = Nodo;
             pLast = Nodo;
-        } else {            
-            pLast.pnext = Nodo;
-            pLast = Nodo;
-            
+        } else {
+            if (tamaño == 1){
+                pLast = Nodo;
+                pFirst.pnext = pLast;
+            } else {
+                pLast.pnext = Nodo;
+                pLast = Nodo;
+            }
         }
         tamaño ++;       
     }
@@ -100,24 +104,15 @@ public class Grafo {
     
     public Grafo transponer(){
         Grafo traspuesto = new Grafo();
-        NodoGrafo pAux = pFirst;
-        while (pAux != null) {
-            // Asegurar que el nodo exista en el traspuesto
-            if (traspuesto.Buscar(pAux.usuario) == null) {
-                traspuesto.insertar(pAux.usuario);
+        for (NodoGrafo pAux = pFirst; pAux != null; pAux = pAux.pnext) {
+            if (traspuesto.Buscar(pAux.usuario) == null) traspuesto.insertar(pAux.usuario);
+
+            for (Arista pArista = pAux.minilista.primero; pArista != null; pArista = pArista.siguiente) {
+                if (!existe_nodo(pArista.destino)) continue; // <-- evita “fantasmas”
+                if (traspuesto.Buscar(pArista.destino) == null) traspuesto.insertar(pArista.destino);
+                NodoGrafo dst = traspuesto.Buscar(pArista.destino);
+                dst.minilista.insertar_nueva(pAux.usuario); // arista invertida
             }
-            Arista pArista = pAux.minilista.primero;
-            while (pArista != null) {
-                // Asegurar que el nodo destino exista antes de agregar la relación
-                if (traspuesto.Buscar(pArista.destino) == null) {
-                    traspuesto.insertar(pArista.destino);
-                }
-                // Ahora sí invertir la arista
-                NodoGrafo destinoNodo = traspuesto.Buscar(pArista.destino);
-                destinoNodo.minilista.insertar_nueva(pAux.usuario);
-                pArista = pArista.siguiente;
-            }
-            pAux = pAux.pnext;
         }
         return traspuesto;
     }
@@ -157,12 +152,42 @@ public class Grafo {
         return texto;
     }
     
-    public void eliminarconexiones(String aux){
-        NodoGrafo reco = new NodoGrafo("");
-        reco = this.pFirst;
-        while(reco != null){
-            reco.minilista.Eliminar(aux);
-            reco = reco.pnext;
+    public void eliminarAristasHacia(String destino) {
+        for (NodoGrafo u = pFirst; u != null; u = u.pnext) {
+            if (u.minilista != null) {
+                u.minilista.eliminarTodos(destino);
+            }
         }
+    }
+
+    public void eliminarUsuarioCompleto(String nombre) {
+        // primero borra TODAS las aristas que apuntan a 'nombre'
+        eliminarAristasHacia(nombre);
+        // luego elimina el nodo del listado de nodos
+        NodoGrafo n = Buscar(nombre);
+        if (n != null) {
+            Eliminar(n);
+        }
+    }
+    
+    public Grafo clonarProfundo() {
+        Grafo copia = new Grafo();
+
+        // Copiar todos los nodos (usuarios)
+        for (NodoGrafo n = this.pFirst; n != null; n = n.pnext) {
+            copia.insertar(n.usuario);
+        }
+
+        // Copiar todas las aristas (relaciones)
+        for (NodoGrafo n = this.pFirst; n != null; n = n.pnext) {
+            NodoGrafo cn = copia.Buscar(n.usuario);
+            for (Arista a = n.minilista.primero; a != null; a = a.siguiente) {
+                if (!cn.minilista.Buscar(a.destino)) {
+                    cn.minilista.insertar_nueva(a.destino);
+                }
+            }
+        }
+
+        return copia;
     }
 }

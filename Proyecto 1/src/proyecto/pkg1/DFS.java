@@ -12,8 +12,8 @@ public class DFS {
     public Pila pila;
     public Grafo grafo;
     
-    public DFS(Grafo listagrafo, Pila Ppila){
-        pila = Ppila;
+    public DFS(Grafo listagrafo){
+        pila = new Pila();
         grafo = listagrafo;
         
     }
@@ -41,14 +41,14 @@ public class DFS {
      * @param componente
      * @param kosaraju pila que se tenga como par&aacute;metro kosaraju
      */
-    public void segundoRecorrido(NodoGrafo pNodo, Componente componente){
+    public void SegundoRecorrido(NodoGrafo pNodo, Componente componente, Pila kosaraju){
+        Arista pAux = pNodo.minilista.primero;
         pNodo.visitado = true;
         componente.insertar(pNodo.usuario);
-        Arista pAux = pNodo.minilista.primero;
-        while (pAux != null){
+        while (pAux != null) {
             NodoGrafo pNodoAux = grafo.Buscar(pAux.destino);
-            if (!(pNodoAux.visitado)) {
-                segundoRecorrido(pNodoAux, componente);
+            if (pNodoAux != null && !pNodoAux.visitado) {
+                SegundoRecorrido(pNodoAux, componente, kosaraju);
             }
             pAux = pAux.siguiente;
         }
