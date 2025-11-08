@@ -4,6 +4,12 @@
  */
 package proyecto.pkg1;
 
+/**
+ * Estructura auxiliar que asocia cadenas de texto con valores enteros.
+ * 
+ * Se utiliza principalmente en el algoritmo de Kosaraju para almacenar el
+ * índice del componente fuertemente conexo (CFC) al que pertenece cada usuario.
+ */
 final class DiccionarioStringInt {
     private static class Nodo {
         String clave;

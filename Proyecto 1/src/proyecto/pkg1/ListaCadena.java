@@ -4,6 +4,15 @@
  */
 package proyecto.pkg1;
 
+/**
+ * Lista enlazada simple que almacena cadenas de texto.
+ * 
+ * Esta estructura se utiliza en la visualización de los componentes
+ * fuertemente conexos (CFC), para listar los miembros de cada grupo
+ * antes de mostrar el resultado al usuario.
+ * 
+ * Cada nodo interno contiene un valor String y una referencia al siguiente.
+ */
 final class ListaCadena {
     static class Nodo {
         String val;

@@ -27,6 +27,18 @@ import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 
+/**
+ * Clase que implementa la interfaz gráfica de la red social.
+ * 
+ * Permite al usuario:
+ * <ul>
+ *   <li>Cargar un archivo de texto con usuarios y sus relaciones.</li>
+ *   <li>Agregar, eliminar o conectar usuarios dentro del grafo.</li>
+ *   <li>Visualizar el grafo usando GraphStream.</li>
+ *   <li>Aplicar el algoritmo de Kosaraju para mostrar los componentes fuertemente conexos.</li>
+ *   <li>Guardar los cambios realizados en el archivo original.</li>
+ * </ul>
+ */
 public class Interfaz {
     // ---- IO ----
     private final ManejoArchivos manejo = new ManejoArchivos();
@@ -53,7 +65,7 @@ public class Interfaz {
 
     // ---- Estado ----
     private boolean cambiosPendientes = false;
-
+    
     public Interfaz() {
         prepararVentana();
         prepararViewerEmbebido();
@@ -76,7 +88,7 @@ public class Interfaz {
                 }
             }
         } catch (Throwable t) {
-            // Si falla la autocarga, continúa normal y muestra ayuda más abajo
+            // Si falla la autocarga, se ignora el error
         }
 
         // Aviso si cierran con cambios pendientes
@@ -156,6 +168,9 @@ public class Interfaz {
 
     /* ===================== UI ===================== */
 
+    /**
+     * Configura el diseño de la ventana principal y sus botones.
+     */
     private void prepararVentana() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1100, 750);
@@ -173,6 +188,10 @@ public class Interfaz {
         frame.add(top, BorderLayout.NORTH);
     }
 
+    /**
+     * Activa o desactiva botones dependiendo del estado de carga del grafo.
+     * @param loaded true si hay un grafo cargado, false en caso contrario.
+     */
     private void setButtonsEnabled(boolean loaded) {
         btnGuardar.setEnabled(loaded);
         btnReiniciar.setEnabled(loaded);
@@ -184,6 +203,9 @@ public class Interfaz {
         btnCargar.setEnabled(true); // siempre habilitado
     }
 
+     /**
+     * Define los eventos asociados a cada botón de la interfaz.
+     */
     private void wireEventos() {
         // ======= Confirmar antes de cargar otro archivo =======
         btnCargar.addActionListener(e -> {
@@ -284,6 +306,9 @@ public class Interfaz {
 
     /* ===================== GraphStream ===================== */
 
+    /**
+     * Configura el visor de GraphStream embebido dentro de la interfaz.
+     */
     private void prepararViewerEmbebido() {
         System.setProperty("org.graphstream.ui", "swing");
         grafoVisual = new SingleGraph("Red Social");
@@ -307,6 +332,9 @@ public class Interfaz {
         g.setAttribute("ui.antialias");
     }
 
+    /**
+     * Dibuja el grafo en pantalla según los datos cargados en memoria.
+     */
     private void renderizarGrafo() {
         if (grafo == null) return;
 
@@ -338,6 +366,9 @@ public class Interfaz {
         viewer.enableAutoLayout();
     }
 
+    /**
+     * Restaura el grafo al último estado guardado.
+     */
     private void reiniciarGrafo() {
         if (grafoBase == null) {
             JOptionPane.showMessageDialog(frame, "No hay un estado base para reiniciar. Carga o guarda primero.");
@@ -383,6 +414,10 @@ public class Interfaz {
 
     /* ===================== CFC (Kosaraju) ===================== */
 
+    /**
+     * Aplica el algoritmo de Kosaraju para mostrar los componentes fuertemente conexos.
+     * Colorea los nodos y muestra un mensaje con los resultados.
+     */
     private void visualizarCFC() {
         if (grafo == null) {
             JOptionPane.showMessageDialog(frame, "No hay grafo cargado.");

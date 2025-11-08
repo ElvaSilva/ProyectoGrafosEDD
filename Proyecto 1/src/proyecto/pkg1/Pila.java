@@ -5,8 +5,10 @@
 package proyecto.pkg1;
 
 /**
- *
- * @author USER
+ * Clase que representa una pila (LIFO) utilizada en los recorridos DFS y en el algoritmo de Kosaraju.
+ * Cada elemento de la pila es un {@link NodoGrafo}.
+ * Esta clase permite apilar y desapilar nodos del grafo de forma secuencial.
+ * 
  */
 public class Pila {
     public NodoGrafo Cima;

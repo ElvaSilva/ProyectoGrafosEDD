@@ -4,10 +4,6 @@
  */
 package proyecto.pkg1;
 
-/**
- *
- * @author USER
- */
 public class Grafo {
     public NodoGrafo pFirst;
     public NodoGrafo pLast;

@@ -5,8 +5,16 @@
 package proyecto.pkg1;
 
 /**
- *
- * @author USER
+ * Clase que representa un nodo dentro del grafo dirigido.
+ * 
+ * Cada nodo contiene:
+ * <ul>
+ *   <li>Un identificador de usuario (String)</li>
+ *   <li>Una lista de adyacencia con las relaciones salientes</li>
+ *   <li>Una referencia al siguiente nodo (para recorrer la lista enlazada del grafo)</li>
+ *   <li>Un marcador booleano usado en recorridos DFS y Kosaraju</li>
+ * </ul>
+ * 
  */
 public class NodoGrafo {
     public String usuario;
