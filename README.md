@@ -10,6 +10,7 @@
 **Lenguaje:** Java  
 **Entorno:** NetBeans 27 / JDK 25  
 **Fecha:** 7 de noviembre de 2025  
+**Repositorio:** https://github.com/ElvaSilva/ProyectoGrafosEDD.git
 
 ---
 
